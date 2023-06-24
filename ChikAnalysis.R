@@ -625,3 +625,8 @@ summary(model)
 
 round(exp(cbind(coef(model), confint(model))),2)
 
+library(pROC)
+r <- roc(arth_pain_rating_group ~ age_years_group + sex_group+ marital_status+ highest_edu+ month_income+ hypertension+ diabetes+ heart_disease+ other+ sowlen_joint_group+ diarrhea+ Irregularbowelmovement+ Dropbloodpressure+ headache+
+           skin_rash+ chestpain+ Bleeding_manifestations+ is_joint_muscle_pain_group, data=ChikData)
+
+
