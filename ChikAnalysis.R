@@ -24,16 +24,11 @@ require(car)
 require(ggplot2)
 require(maptools)
 
-setwd('C:\\Users\\ASUS\\Downloads')
-lung <- read.csv("survey lung cancer.csv")
-
-lung$GENDER2 = factor(lung$GENDER,levels = c("F","M"), labels=c(0, 1))
 
 
 
-setwd('E:\\ResearchProject\\Dengue Co-morbidities')
+setwd('E:\\ResearchProject\\Kanis Mam\\Dengue Co-morbidities')
 ChikData <- read.csv("Data.csv")
-ChikData <- ChikData[1:435,]
 
 #Age Category
 ChikData$age_years
@@ -108,14 +103,182 @@ ChikData$is_joint_muscle_pain
 ChikData$is_joint_muscle_pain_group <- factor(ChikData$is_joint_muscle_pain,levels=c(0,1),labels = c('No','Yes'))
 ChikData$is_joint_muscle_pain_group
 
-#Age Category
-ChikData$arth_pain_rating
-ChikData$arth_pain_rating_group[ChikData$arth_pain_rating <=  6]  = 1
-ChikData$arth_pain_rating_group[ChikData$arth_pain_rating >= 7] = 2
-ChikData$arth_pain_rating_group
 
-ChikData$arth_pain_rating_group <- factor(ChikData$arth_pain_rating_group,levels=c(1,2),labels = c('Mild_Moderate','Severe'))
-ChikData$arth_pain_rating_group
+aggregate(ChikData$age_years ~ ChikData$arth_pain_rating_group, ChikData, median)
+aggregate(ChikData$age_years ~ ChikData$arth_pain_rating_group, ChikData, IQR)
+describeBy(ChikData$age_years)
+IQR(ChikData$age_years)
+t.test(ChikData$age_years ~ ChikData$arth_pain_rating_group)
+model <- glm( relevel(factor(ChikData$arth_pain_rating_group), ref = "Mild_Moderate")~ 
+                ChikData$age_years,
+              family=binomial(link='logit'), data=ChikData)
+summary(model)
+
+round(exp(cbind(coef(model), confint(model))),2)
+
+
+aggregate(ChikData$WBC ~ ChikData$arth_pain_rating_group, ChikData, median)
+aggregate(ChikData$WBC ~ ChikData$arth_pain_rating_group, ChikData, IQR)
+describeBy(ChikData$WBC)
+IQR(ChikData$WBC)
+t.test(ChikData$WBC ~ ChikData$arth_pain_rating_group)
+model <- glm( relevel(factor(ChikData$arth_pain_rating_group), ref = "Mild_Moderate")~ 
+                ChikData$WBC,
+              family=binomial(link='logit'), data=ChikData)
+summary(model)
+
+round(exp(cbind(coef(model), confint(model))),2)
+
+aggregate(ChikData$Thrombo ~ ChikData$arth_pain_rating_group, ChikData, median)
+aggregate(ChikData$Thrombo ~ ChikData$arth_pain_rating_group, ChikData, IQR)
+describeBy(ChikData$Thrombo)
+IQR(ChikData$Thrombo)
+t.test(ChikData$Thrombo ~ ChikData$arth_pain_rating_group)
+model <- glm( relevel(factor(ChikData$arth_pain_rating_group), ref = "Mild_Moderate")~ 
+                ChikData$Thrombo,
+              family=binomial(link='logit'), data=ChikData)
+summary(model)
+
+round(exp(cbind(coef(model), confint(model))),2)
+
+aggregate(ChikData$Hemog ~ ChikData$arth_pain_rating_group, ChikData, median)
+aggregate(ChikData$Hemog ~ ChikData$arth_pain_rating_group, ChikData, IQR)
+describeBy(ChikData$Hemog)
+IQR(ChikData$Hemog)
+t.test(ChikData$Hemog ~ ChikData$arth_pain_rating_group)
+model <- glm( relevel(factor(ChikData$arth_pain_rating_group), ref = "Mild_Moderate")~ 
+                ChikData$Hemog,
+              family=binomial(link='logit'), data=ChikData)
+summary(model)
+
+round(exp(cbind(coef(model), confint(model))),2)
+
+aggregate(ChikData$Screatine ~ ChikData$arth_pain_rating_group, ChikData, median)
+aggregate(ChikData$Screatine ~ ChikData$arth_pain_rating_group, ChikData, IQR)
+describeBy(ChikData$Screatine)
+IQR(ChikData$Screatine)
+t.test(ChikData$Screatine ~ ChikData$arth_pain_rating_group)
+model <- glm( relevel(factor(ChikData$arth_pain_rating_group), ref = "Mild_Moderate")~ 
+                ChikData$Screatine,
+              family=binomial(link='logit'), data=ChikData)
+summary(model)
+
+round(exp(cbind(coef(model), confint(model))),2)
+
+aggregate(ChikData$Bilirubin ~ ChikData$arth_pain_rating_group, ChikData, median)
+aggregate(ChikData$Bilirubin ~ ChikData$arth_pain_rating_group, ChikData, IQR)
+describeBy(ChikData$Bilirubin)
+IQR(ChikData$Bilirubin)
+t.test(ChikData$Bilirubin ~ ChikData$arth_pain_rating_group)
+model <- glm( relevel(factor(ChikData$arth_pain_rating_group), ref = "Mild_Moderate")~ 
+                ChikData$Bilirubin,
+              family=binomial(link='logit'), data=ChikData)
+summary(model)
+
+round(exp(cbind(coef(model), confint(model))),2)
+
+aggregate(ChikData$AST ~ ChikData$arth_pain_rating_group, ChikData, median)
+aggregate(ChikData$AST ~ ChikData$arth_pain_rating_group, ChikData, IQR)
+describeBy(ChikData$AST)
+IQR(ChikData$AST)
+t.test(ChikData$AST ~ ChikData$arth_pain_rating_group)
+model <- glm( relevel(factor(ChikData$arth_pain_rating_group), ref = "Mild_Moderate")~ 
+                ChikData$AST,
+              family=binomial(link='logit'), data=ChikData)
+summary(model)
+
+round(exp(cbind(coef(model), confint(model))),2)
+
+aggregate(ChikData$ALT ~ ChikData$arth_pain_rating_group, ChikData, median)
+aggregate(ChikData$ALT ~ ChikData$arth_pain_rating_group, ChikData, IQR)
+describeBy(ChikData$ALT)
+IQR(ChikData$ALT)
+t.test(ChikData$ALT ~ ChikData$arth_pain_rating_group)
+model <- glm( relevel(factor(ChikData$arth_pain_rating_group), ref = "Mild_Moderate")~ 
+                ChikData$ALT,
+              family=binomial(link='logit'), data=ChikData)
+summary(model)
+
+round(exp(cbind(coef(model), confint(model))),2)
+
+aggregate(ChikData$Albumin ~ ChikData$arth_pain_rating_group, ChikData, median)
+aggregate(ChikData$Albumin ~ ChikData$arth_pain_rating_group, ChikData, IQR)
+describeBy(ChikData$Albumin)
+IQR(ChikData$Albumin)
+t.test(ChikData$Albumin ~ ChikData$arth_pain_rating_group)
+model <- glm( relevel(factor(ChikData$arth_pain_rating_group), ref = "Mild_Moderate")~ 
+                ChikData$Albumin,
+              family=binomial(link='logit'), data=ChikData)
+summary(model)
+
+round(exp(cbind(coef(model), confint(model))),2)
+
+aggregate(ChikData$Globulin ~ ChikData$arth_pain_rating_group, ChikData, median)
+aggregate(ChikData$Globulin ~ ChikData$arth_pain_rating_group, ChikData, IQR)
+describeBy(ChikData$Globulin)
+IQR(ChikData$Globulin)
+t.test(ChikData$Globulin ~ ChikData$arth_pain_rating_group)
+model <- glm( relevel(factor(ChikData$arth_pain_rating_group), ref = "Mild_Moderate")~ 
+                ChikData$Globulin,
+              family=binomial(link='logit'), data=ChikData)
+summary(model)
+
+round(exp(cbind(coef(model), confint(model))),2)
+
+aggregate(ChikData$Pulse ~ ChikData$arth_pain_rating_group, ChikData, median)
+aggregate(ChikData$Pulse ~ ChikData$arth_pain_rating_group, ChikData, IQR)
+describeBy(ChikData$Pulse)
+IQR(ChikData$Pulse)
+t.test(ChikData$Pulse ~ ChikData$arth_pain_rating_group)
+model <- glm( relevel(factor(ChikData$arth_pain_rating_group), ref = "Mild_Moderate")~ 
+                ChikData$Pulse,
+              family=binomial(link='logit'), data=ChikData)
+summary(model)
+
+round(exp(cbind(coef(model), confint(model))),2)
+
+aggregate(ChikData$Temp ~ ChikData$arth_pain_rating_group, ChikData, median)
+aggregate(ChikData$Temp ~ ChikData$arth_pain_rating_group, ChikData, IQR)
+describeBy(ChikData$Temp)
+IQR(ChikData$Temp)
+t.test(ChikData$Temp ~ ChikData$arth_pain_rating_group)
+model <- glm( relevel(factor(ChikData$arth_pain_rating_group), ref = "Mild_Moderate")~ 
+                ChikData$Temp,
+              family=binomial(link='logit'), data=ChikData)
+summary(model)
+
+round(exp(cbind(coef(model), confint(model))),2)
+
+model <- glm( relevel(factor(ChikData$arth_pain_rating_group), ref = "Mild_Moderate")~ 
+                ChikData$age_years + ChikData$WBC + ChikData$Thrombo  +
+                Screatine + Bilirubin + AST + ALT + Albumin + Globulin +
+                Pulse + Temp,
+              family=binomial(link='logit'), data=ChikData)
+summary(model)
+vif(model)
+
+round(exp(cbind(coef(model), confint(model))),2)
+
+
+library(ggpubr)
+library(ggplot2)
+library(extrafont)
+library(GGally)
+library(MASS)
+
+RabiesCorr <- cbind(Rabies$Rainfall[61:216], Rabies$AvgT[61:216], Rabies$ARV[61:216], Rabies$MDV[61:216], Rabies$RabiesCase[61:216])
+
+colnames(RabiesCorr) <- c("Rainfall", "Tempurature", "ARV", "MDV", "Rabies Cases")
+
+ggpairs(data.frame(RabiesCorr))
+
+library(GGally)
+CorrPlot <- ggpairs(data.frame(RabiesCorr),  
+                    lower = list(continuous = "smooth"))+
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+CorrPlot
+
+
 
 #joint pain days
 ChikData$jointpain_days
@@ -656,7 +819,7 @@ round(exp(cbind(coef(model), confint(model))),2)
 #########################################################################################
 #logistic odds ratio
 
-model <- glm( relevel(factor(ChikData$arth_pain_rating_group), ref = "Mild_Moderate")~ relevel(factor(ChikData$age_years_group),ref = "59+")+
+model <- glm( relevel(factor(ChikData$arth_pain_rating_group), ref = "Mild_Moderate")~ relevel(factor(ChikData$age_years_group),ref = "30-59")+
               relevel(factor(ChikData$sex_group),ref = "Female")+
               relevel(factor(ChikData$marital_status),ref = "2")+
               relevel(factor(ChikData$highest_edu),ref = "4")+
@@ -698,137 +861,46 @@ plot(perf, main="ROC Curve ", xlab="specificity",  ylab="sensitivity")
 grid()
 abline(0,1, col="blue", lty=2)
 
-#graph2
-require(foreign)
-require(MASS)
-require(pROC)
-require(survey)
-require(ResourceSelection)
-require(ROCR)
-require(car)
-require(ggplot2)
-require(maptools)
-library(nnet)
-library(FSA)
-library(caret)
-require(mapproj)
-require(rgdal)
-require(car)
+#roc curve
 
-getwd()
+# plot(perf, main="ROC Curve ", xlab="specificity",  ylab="sensitivity")
+# grid()
+# abline(0,1, col="blue", lty=2)
 
-setwd("E:\\ResearchProject\\Dengue Co-morbidities")
-#graph2
-#tiff("Map.tiff", units="in", width=6, height=5, res=300)
-q <- readShapeSpatial('bgd_admbnda_adm1_bbs_20180410.shp')
-q_1 <- fortify(q)
+D.ex <- model$y
+M.ex <- fitted(model)
+mu1 <- mean(M.ex[D.ex == 1])
+mu0 <- mean(M.ex[D.ex == 0])
+s1 <- sd(M.ex[D.ex == 1])
+s0 <- sd(M.ex[D.ex == 0])
+c.ex <- seq(min(M.ex), max(M.ex), length.out = 300)
 
 
-ARI <- read.csv("ARI.csv")
+binorm.roc <- data.frame(c = c.ex, 
+                         FPF = pnorm((mu0 - c.ex)/s0), 
+                         TPF = pnorm((mu1 - c.ex)/s1)
+)
+library(survivalROC)
+library(plotROC)
+binorm.plot <- ggplot(binorm.roc, aes(x = FPF, y = TPF, label = c)) + 
+  geom_roc(stat = "identity") +  
+  ggtitle("ROC Curves (Adjusted Model)")+
+  #  scale_x_continuous("False positive fraction (1 - Specificity)", breaks = seq(0, 1, by = .1))+
+  #  scale_y_continuous("True positive fraction (Sensitivity)", breaks = seq(0, 1, by = .1)) 
+  style_roc(theme = theme_grey, xlab = "False positive fraction (1 - Specificity)", ylab = "True positive fraction (Sensitivity)")
+binorm.plot1 <- binorm.plot + 
+  theme(plot.title = element_text(size = 12,hjust=0.5),
+        legend.title = element_text(size=12),
+        legend.text = element_text(size=12),
+        axis.text = element_text(size = 12),
+        axis.title = element_text(size = 12))
+binorm.plot1
 
-ARI$ARI <- log(ARI$ARI)
-
-q_1$prev <- ifelse(q_1$id==0,ARI$ARI[1],
-                   ifelse(q_1$id==1,ARI$ARI[2],
-                          ifelse(q_1$id==2,ARI$ARI[3],
-                                 ifelse(q_1$id==3,ARI$ARI[4],
-                                        ifelse(q_1$id==4,ARI$ARI[5],
-                                               ifelse(q_1$id==5,ARI$ARI[6],
-                                                      ifelse(q_1$id==6,ARI$ARI[7],ARI$ARI[8])))))))
-
-
-centroids.df <- as.data.frame(coordinates(q))
-names(centroids.df) <- c("Longitude", "Latitude")
-centroids.df$name <- c('    Barisal\n   (37786)',
-                       '           Chittagong\n           (44216)',
-                       'Dhaka\n(167704)','Khulna\n(34541)\n',
-                       'Mymensingh\n(8234)\n',
-                       'Rajshahi\n(19318)',
-                       'Rangpur\n(5517)','Sylhet\n(1433)')
-
-
-x <- ggplot(q_1, aes(x=long, y=lat)) + geom_polygon(aes(group=group,fill=prev),colour= "lightgrey")+coord_map()+
-  geom_text(data=centroids.df,aes(label = name, x = Longitude, y = Latitude),color='black',size=3.5)+
-  scale_fill_distiller(name='Dengue Cases\n(log)',palette ="YIGn", direction=1)+
-  theme(legend.text = element_text(size = 8))+
-  theme_void()
-
-x
-
-
-#graph2
-q <- readShapeSpatial('bgd_admbnda_adm1_bbs_20180410.shp')
-q_1 <- fortify(q)
-
-
-ARI <- read.csv("BF.csv")
-ARI$ARI <- log(ARI$ARI)
-q_1$prev <- ifelse(q_1$id==0,ARI$ARI[1],
-                   ifelse(q_1$id==1,ARI$ARI[2],
-                          ifelse(q_1$id==2,ARI$ARI[3],
-                                 ifelse(q_1$id==3,ARI$ARI[4],
-                                        ifelse(q_1$id==4,ARI$ARI[5],
-                                               ifelse(q_1$id==5,ARI$ARI[6],
-                                                      ifelse(q_1$id==6,ARI$ARI[7],ARI$ARI[8])))))))
-
-
-centroids.df <- as.data.frame(coordinates(q))
-names(centroids.df) <- c("Longitude", "Latitude")
-centroids.df$name <- c('    Barisal\n    (206)',
-                       '         Chittagong\n         (124)',
-                       'Dhaka\n(1163)','Khulna\n (125)',
-                       'Mymensingh\n(16)',
-                       'Rajshahi\n(60)',
-                       'Rangpur\n(10)','Sylhet\n(1)')
-
-
-y <- ggplot(q_1, aes(x=long, y=lat)) +geom_polygon(aes(group=group,fill=prev),colour= "lightgrey")+coord_map()+
-  geom_text(data=centroids.df,aes(label = name, x = Longitude, y = Latitude),color='black',size=3.5)+
-  scale_fill_distiller(name='Dengue Deaths\n(log)',palette ="YlOrRd", direction=1)+
-  theme(legend.text = element_text(size = 8))+
-  theme_void()
-y
-tiff("Map.tiff", units="in", width=10, height=6, res=300)
-gridExtra::grid.arrange(x,y,ncol=2)
+tiff("ROC.tiff", units="in", width=6, height=6, res=300)
+gridExtra::grid.arrange(binorm.plot1)
 dev.off()
 
 
 
-# pie Age
-slpie <- sldata %>%
-  group_by(Sex) %>%
-  summarise(count = n()) %>%
-  group_by(Sex) %>% mutate(per=round(count/nrow(sldata)*100,2))
-slpie
 
-m <- ggplot(slpie, aes(x = "", y = per, fill = Sex)) +
-  geom_col(color = "black") +
-  geom_text(aes(label = per),cex=10,
-            position = position_stack(vjust = 0.5)) +
-  coord_polar(theta = "y") +
-  scale_fill_manual(values = c("green", "lightgreen")) +
-  theme_void()+ 
-  xlab("") + ylab("") + ggtitle("Dengue Cases (%)")+
-  theme(plot.title = element_text(size = 30,hjust=0.5),
-        legend.title = element_text(size=30),
-        legend.text = element_text(size=30))
-m
 
-n <- ggplot(slpie, aes(x = "", y = per, fill = Sex)) +
-  geom_col(color = "black") +
-  geom_text(aes(label = per),cex=10,
-            position = position_stack(vjust = 0.5)) +
-  coord_polar(theta = "y") +
-  scale_fill_manual(values = c("#0000FF", "#ADD8E6")) +
-  theme_void()+ 
-  xlab("") + ylab("") + ggtitle("Dengue Deaths (%)")+
-  theme(plot.title = element_text(size = 30,hjust=0.5),
-        legend.title = element_text(size=30),
-        legend.text = element_text(size=30))
-
-n
-
-library(gridExtra)
-tiff("SexPlots.tiff", units="in", width=20, height=10, res=300)
-gridExtra::grid.arrange(m, n, nrow=1, ncol=2)
-dev.off()
