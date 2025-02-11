@@ -266,18 +266,27 @@ library(extrafont)
 library(GGally)
 library(MASS)
 
-RabiesCorr <- cbind(Rabies$Rainfall[61:216], Rabies$AvgT[61:216], Rabies$ARV[61:216], Rabies$MDV[61:216], Rabies$RabiesCase[61:216])
+DengueCorr <- cbind(ChikData$age_years, ChikData$WBC, ChikData$Thrombo, ChikData$Hemog,
+                    ChikData$Screatine, ChikData$Bilirubin, ChikData$AST, ChikData$ALT, 
+                    ChikData$Albumin, ChikData$Globulin, ChikData$Pulse, ChikData$Temp)
 
-colnames(RabiesCorr) <- c("Rainfall", "Tempurature", "ARV", "MDV", "Rabies Cases")
+colnames(DengueCorr) <- c("Age", "WBC", "Thrombocytes", "Hemoglobin",
+                    "S.Creatinine", "Total bilirubin", "AST", "ALT", 
+                    "Albumin", "Globulin", "Pulse rate", "Temperature")
 
-ggpairs(data.frame(RabiesCorr))
+
+cor(DengueCorr)
+
+ggpairs(data.frame(DengueCorr))
 
 library(GGally)
-CorrPlot <- ggpairs(data.frame(RabiesCorr),  
-                    lower = list(continuous = "smooth"))+
+CorrPlot <- ggpairs(data.frame(DengueCorr),
+                    lower = list(continuous = "cor")
+                    )+
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 CorrPlot
 
+ggsave("CorrPlot.tiff", width=10, height=10)
 
 
 #joint pain days
